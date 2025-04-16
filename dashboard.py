@@ -78,9 +78,7 @@ async def websocket_client():
                     data = await websocket.recv()
                     data_json = json.loads(data)
                     data_queue.put(data_json)
-        except (websockets.exceptions.ConnectionClosedError, 
-                websockets.exceptions.ConnectionClosedOK,
-                ConnectionRefusedError) as e:
+        except Exception as e:
             print(f"Connection error: {e}. Reconnecting in 5 seconds...")
             await asyncio.sleep(5)
 
@@ -157,79 +155,7 @@ app.layout = html.Div([
         n_intervals=0
     ),
     
-    # CSS for styling
-    html.Style('''
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: #FFFFFF;
-        }
-        .main-content {
-            padding: 20px;
-            margin: 0 auto;
-            max-width: 1600px;
-        }
-        .dashboard-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .status-row, .viz-row, .chart-row {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .status-card {
-            background-color: #1E1E1E;
-            border-radius: 8px;
-            padding: 15px;
-            flex: 1;
-            min-width: 200px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .viz-card, .chart-card {
-            background-color: #1E1E1E;
-            border-radius: 8px;
-            padding: 15px;
-            flex: 1;
-            min-width: 45%;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        h1, h4 {
-            margin-top: 0;
-            color: #FFFFFF;
-        }
-        .status-indicator {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 4px;
-            font-weight: bold;
-            text-align: center;
-        }
-        .data-values {
-            background-color: #1E1E1E;
-            border-radius: 8px;
-            padding: 15px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-        }
-        .data-value {
-            background-color: #2A2A2A;
-            padding: 10px;
-            border-radius: 4px;
-        }
-        .graph-display {
-            height: 300px;
-        }
-        @media (max-width: 768px) {
-            .viz-card, .chart-card {
-                min-width: 100%;
-            }
-        }
-    ''')
+    html.Div([], style={'display': 'none'}, id='css-container')
 ])
 
 # Process queue data
@@ -316,7 +242,7 @@ def update_orientation_display(n):
             margin=dict(l=0, r=0, b=0, t=0),
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
-            scene_camera=dict(eye=dict(x=1.5, y=1.5, z=1.5))
+            scene_camera=dict(eye=dict(x=1, y=1, z=1))
         )
         return fig
     
@@ -415,7 +341,7 @@ def update_orientation_display(n):
     ))
     
     # Add reference axes
-    axis_length = arm_length * 1.5
+    axis_length = arm_length * 1
     
     # Forward reference (blue z-axis)
     fig.add_trace(go.Scatter3d(
@@ -484,15 +410,15 @@ def update_orientation_display(n):
     # Set layout
     fig.update_layout(
         scene=dict(
-            xaxis=dict(range=[-1.5, 1.5], showbackground=False, visible=False),
-            yaxis=dict(range=[-1.5, 1.5], showbackground=False, visible=False),
-            zaxis=dict(range=[-1.5, 1.5], showbackground=False, visible=False),
+            xaxis=dict(range=[-1, 1], showbackground=False, visible=False),
+            yaxis=dict(range=[-1, 1], showbackground=False, visible=False),
+            zaxis=dict(range=[-1, 1], showbackground=False, visible=False),
             aspectmode="cube"
         ),
         margin=dict(l=0, r=0, b=0, t=0),
         paper_bgcolor='rgba(0,0,0,0)',
         plot_bgcolor='rgba(0,0,0,0)',
-        scene_camera=dict(eye=dict(x=1.5, y=1.5, z=1.5))
+        scene_camera=dict(eye=dict(x=1, y=1, z=1))
     )
     
     return fig
@@ -728,4 +654,4 @@ if __name__ == '__main__':
     print("Starting Drone Telemetry Dashboard...")
     print("Make sure the transmitter is running on ws://localhost:8765")
     print("Access the dashboard at http://localhost:8050")
-    app.run_server(debug=False, host='0.0.0.0', port=8050)
+    app.run(debug=False, host='0.0.0.0', port=8050)

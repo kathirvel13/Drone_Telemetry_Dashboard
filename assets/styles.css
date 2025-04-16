@@ -1,0 +1,70 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #FFFFFF;
+}
+.main-content {
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1600px;
+}
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.status-row, .viz-row, .chart-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.status-card {
+    background-color: #1E1E1E;
+    border-radius: 8px;
+    padding: 15px;
+    flex: 1;
+    min-width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.viz-card, .chart-card {
+    background-color: #1E1E1E;
+    border-radius: 8px;
+    padding: 15px;
+    flex: 1;
+    min-width: 45%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+h1, h4 {
+    margin-top: 0;
+    color: #FFFFFF;
+}
+.status-indicator {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+}
+.data-values {
+    background-color: #1E1E1E;
+    border-radius: 8px;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+.data-value {
+    background-color: #2A2A2A;
+    padding: 10px;
+    border-radius: 4px;
+}
+.graph-display {
+    height: 300px;
+}
+@media (max-width: 768px) {
+    .viz-card, .chart-card {
+        min-width: 100%;
+    }
+}

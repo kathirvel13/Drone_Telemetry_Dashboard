@@ -104,7 +104,7 @@ class DroneDataGenerator:
         }
         return mapping.get(status, 0)
 
-async def transmit_data(websocket, path):
+async def transmit_data(websocket):
     """Handle WebSocket connection and send drone data"""
     drone = DroneDataGenerator()
     print(f"Client connected from {websocket.remote_address}")
