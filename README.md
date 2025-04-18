@@ -41,8 +41,8 @@ The dashboard displays various metrics including:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/drone-telemetry-dashboard.git
-   cd drone-telemetry-dashboard
+   git clone https://github.com/kathirvel13/Drone_Telemetry_Dashboard.git
+   cd Drone_Telemetry_Dashboard
    ```
 
 2. Install required packages using the requirements.txt file:
@@ -60,25 +60,12 @@ First, start the transmitter which generates simulated drone telemetry data:
 python transmitter.py
 ```
 
-You should see:
-```
-Starting drone telemetry transmitter server on ws://localhost:8765
-Press Ctrl+C to exit
-```
-
 ### Step 2: Launch the Dashboard
 
 In a new terminal window, start the dashboard application:
 
 ```bash
 python dashboard.py
-```
-
-You should see:
-```
-Starting Drone Telemetry Dashboard...
-Make sure the transmitter is running on ws://localhost:8765
-Access the dashboard at http://localhost:8050
 ```
 
 ### Step 3: Access the Dashboard
@@ -104,6 +91,8 @@ drone-telemetry-dashboard/
 
 ## How It Works
 
+![Screen recording of the project](https://drive.google.com/file/d/1jW-GWIe2OhQuxpr6zfI-piJLpcL01sFt/view?usp=sharing)
+
 ### Transmitter (`transmitter.py`)
 
 The transmitter simulates a drone sending telemetry data:
@@ -126,17 +115,7 @@ The dashboard connects to the transmitter and visualizes the data:
 
 The dashboard uses a queue-based approach to safely transfer data between the WebSocket thread and the Dash application thread.
 
-## Customization
-
-### Styling
-
-The dashboard uses a dark theme by default. You can modify the appearance by editing the `styles.css` file.
-
-### Data Retention
-
-By default, the dashboard keeps the last 100 data points for time-series charts. You can adjust this by changing the `MAX_DATA_POINTS` constant in `dashboard.py`.
-
-### Custom Data Source
+## Custom Data Source
 
 To use this dashboard with a real drone instead of simulated data:
 
