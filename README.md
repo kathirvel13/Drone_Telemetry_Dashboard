@@ -2,7 +2,7 @@
 
 A real-time telemetry visualization system for drone monitoring built with Python, WebSockets, and Plotly Dash.
 
-![Dashboard Preview]()
+![Dashboard Preview](https://raw.githubusercontent.com/kathirvel13/Drone_Telemetry_Dashboard/refs/heads/main/screenshots/Dashboard_home.png)
 
 ## Overview
 
