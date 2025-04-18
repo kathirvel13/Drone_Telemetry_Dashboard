@@ -115,19 +115,6 @@ app.layout = html.Div([
                 ], className='status-card')
             ], className='status-row'),
             
-            # 3D orientation display and GPS map
-            html.Div([
-                html.Div([
-                    html.H4("Drone Orientation (IMU)"),
-                    dcc.Graph(id='orientation-display', className='graph-display')
-                ], className='viz-card'),
-                
-                html.Div([
-                    html.H4("GPS Position"),
-                    dcc.Graph(id='gps-map', className='graph-display')
-                ], className='viz-card')
-            ], className='viz-row'),
-            
             # Telemetry charts
             html.Div([
                 html.Div([
@@ -144,7 +131,20 @@ app.layout = html.Div([
             # Real-time data values
             html.Div([
                 html.Div(id='telemetry-data', className='data-values')
-            ], className='data-row')
+            ], className='data-row'),
+            
+            # 3D orientation display and GPS map
+            html.Div([
+                html.Div([
+                    html.H4("Drone Orientation (IMU)"),
+                    dcc.Graph(id='orientation-display', className='graph-display')
+                ], className='viz-card'),
+                
+                html.Div([
+                    html.H4("GPS Position"),
+                    dcc.Graph(id='gps-map', className='graph-display')
+                ], className='viz-card')
+            ], className='viz-row'),
         ], className='dashboard-container')
     ], className='main-content'),
     
@@ -242,7 +242,7 @@ def update_orientation_display(n):
             margin=dict(l=0, r=0, b=0, t=0),
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
-            scene_camera=dict(eye=dict(x=1, y=1, z=1))
+            scene_camera=dict(eye=dict(x=0.75, y=0.75, z=0.75))
         )
         return fig
     
@@ -267,9 +267,9 @@ def update_orientation_display(n):
         ])
     
     # Apply rotations in ZYX order (yaw, pitch, roll)
-    R_z = rotation_matrix([0, 0, 1], yaw)
-    R_y = rotation_matrix([0, 1, 0], pitch)
-    R_x = rotation_matrix([1, 0, 0], roll)
+    R_z = rotation_matrix([0, 0, 0.75], yaw)
+    R_y = rotation_matrix([0, 0.75, 0], pitch)
+    R_x = rotation_matrix([0.75, 0, 0], roll)
     R = R_z.dot(R_y).dot(R_x)
     
     # Create drone model
@@ -341,7 +341,7 @@ def update_orientation_display(n):
     ))
     
     # Add reference axes
-    axis_length = arm_length * 1
+    axis_length = arm_length * 0.75
     
     # Forward reference (blue z-axis)
     fig.add_trace(go.Scatter3d(
@@ -433,7 +433,7 @@ def update_gps_map(n):
     
     if data_store.latest_data is not None and len(data_store.latitude) > 0:
         # Plot path
-        fig.add_trace(go.Scattermapbox(
+        fig.add_trace(go.Scattermap(
             lat=data_store.latitude,
             lon=data_store.longitude,
             mode='lines+markers',
@@ -443,12 +443,12 @@ def update_gps_map(n):
         ))
         
         # Add current position marker
-        fig.add_trace(go.Scattermapbox(
+        fig.add_trace(go.Scattermap(
             lat=[data_store.latitude[-1]],
             lon=[data_store.longitude[-1]],
             mode='markers',
             marker=dict(
-                size=15,
+                size=13,
                 color='red',
                 symbol='circle'
             ),
@@ -458,10 +458,10 @@ def update_gps_map(n):
     fig.update_layout(
         mapbox=dict(
             style="dark",
-            zoom=15,
+            zoom=1000,
             center=dict(
-                lat=data_store.latitude[-1] if data_store.latest_data else 37.7749,
-                lon=data_store.longitude[-1] if data_store.latest_data else -122.4194
+                lat=data_store.latitude[-1] if data_store.latest_data else 11.064754,
+                lon=data_store.longitude[-1] if data_store.latest_data else 77.093565
             )
         ),
         margin={"r": 0, "t": 0, "l": 0, "b": 0},

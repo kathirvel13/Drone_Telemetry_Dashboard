@@ -17,8 +17,8 @@ class DroneDataGenerator:
         self.altitude = 100.0        # Starting altitude in meters
         
         # Position data (GPS)
-        self.latitude = 37.7749      # Starting at San Francisco coordinates
-        self.longitude = -122.4194
+        self.latitude = 11.064754      
+        self.longitude = 77.093565
         
         # IMU data
         self.roll = 0.0              # Roll angle in degrees
@@ -49,12 +49,12 @@ class DroneDataGenerator:
         movement_factor = 2 * math.sin(self.time_offset / 10)  # Create cyclical movement
         
         # IMU data simulation
-        self.roll = 15 * math.sin(self.time_offset / 5) + random.uniform(-2, 2)
-        self.pitch = 10 * math.cos(self.time_offset / 7) + random.uniform(-2, 2)
+        self.roll = 15 * math.sin(self.time_offset / 5) + random.uniform(-5, 5)
+        self.pitch = 10 * math.cos(self.time_offset / 7) + random.uniform(-5, 5)
         self.yaw = (self.yaw + 1 + random.uniform(-0.5, 0.5)) % 360  # Slowly rotating with jitter
         
         # Altitude simulation (gentle oscillation)
-        self.altitude = 100 + 10 * math.sin(self.time_offset / 15) + random.uniform(-1, 1)
+        self.altitude = 100 + 10 * math.sin(self.time_offset / 15) + random.uniform(-3, 3)
         
         # GPS simulation (drone moves in small circular pattern)
         circle_radius = 0.0001  # Small radius for GPS movement
