@@ -27,7 +27,6 @@ The dashboard displays various metrics including:
 - **Time-Series Charts**: Track IMU, altitude, and temperature data over time
 - **Connection Status Monitoring**: Visual indicators for connection quality
 - **Battery Level Monitoring**: Real-time battery voltage and percentage display
-- **Responsive Design**: Works on desktop and mobile devices
 
 ## Requirements
 
@@ -91,7 +90,7 @@ drone-telemetry-dashboard/
 
 ## How It Works
 
-![Screen recording of the project](https://drive.google.com/file/d/1jW-GWIe2OhQuxpr6zfI-piJLpcL01sFt/view?usp=sharing)
+[Screen recording of the project](https://drive.google.com/file/d/1jW-GWIe2OhQuxpr6zfI-piJLpcL01sFt/view?usp=sharing)
 
 ### Transmitter (`transmitter.py`)
 
